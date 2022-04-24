@@ -17,9 +17,9 @@
                 Mens
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="Mens-link">
-                <a href="" class="dropdown-item">Footwear</a>
-                <a href="" class="dropdown-item">Clothing</a>
-                <a href="" class="dropdown-item">Accessories</a>
+                <a href="{% url 'products' %}?category=men_shoes" class="dropdown-item">Footwear</a>
+                <a href="{% url 'products' %}?category=men_clothing" class="dropdown-item">Clothing</a>
+                <a href="{% url 'products' %}?category=men_accessories" class="dropdown-item">Accessories</a>
             </div>
         </li>
 
@@ -28,9 +28,9 @@
                 Womens
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="Womens-link">
-                <a href="" class="dropdown-item">Footwear</a>
-                <a href="" class="dropdown-item">Clothing</a>
-                <a href="" class="dropdown-item">Accessories</a>
+                <a href="{% url 'products' %}?category=women_shoes" class="dropdown-item">Footwear</a>
+                <a href="{% url 'products' %}?category=women_clothing" class="dropdown-item">Clothing</a>
+                <a href="{% url 'products' %}?category=women_accessories" class="dropdown-item">Accessories</a>
             </div>
         </li>
 
@@ -39,9 +39,9 @@
                 Special Offers
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="specials-link">
-                <a href="" class="dropdown-item">New Arrivals</a>
-                <a href="" class="dropdown-item">Deals</a>
-                <a href="" class="dropdown-item">All Specials</a>
+                <a href="{% url 'products' %}?category=new_arrivals" class="dropdown-item">New Arrivals</a>
+                <a href="{% url 'products' %}?category=deals" class="dropdown-item">Deals</a>
+                <a href="{% url 'products' %}?category=new_arrivals,deals" class="dropdown-item">All Specials</a>
             </div>
         </li>
     </ul>
