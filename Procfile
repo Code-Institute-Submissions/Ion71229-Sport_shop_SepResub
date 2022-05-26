@@ -1,0 +1,1 @@
+web: gunicorn Shoes_shop.wsgi:application
