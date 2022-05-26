@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-g_69)drheeb614im8a7u5s^sgo&5cbglzcv+(a5re2xael%tat
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://git.heroku.com/sport-shop1.git', 'localhost']
+ALLOWED_HOSTS = ['sport-shop1.herokuapp.com', 'localhost']
 
 
 # Application definition
