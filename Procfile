@@ -1,1 +1,1 @@
-web: gunicorn shoes_shop.wsgi:application
+web: gunicorn sport_shop.wsgi:application
