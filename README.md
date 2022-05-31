@@ -1,4 +1,4 @@
-# Sport Shop
+# <u>Sport Shop</u>
 
 The live Sport Shop site can be viewed [here](https://sport-shop1.herokuapp.com/).
 ![Sport Shop](media/ResponsiveScreens.png)
@@ -27,13 +27,7 @@ The Sport Shop is an ecommerce website allowing users to purchase sports clothin
 
 - [Validator Testing](#validator-testing)
 
-- [Responsive Testing](#responsive-testing)
-
 - [Bugs Found](#bugs-found)
-
-- [User Feedback](#user-feedback)
-
-- [Search Engine Optimisation (SEO)](#search-engine-optimisation-seo)
 
 - [Deployment](#deployment)
 
@@ -139,6 +133,7 @@ For this project, I also used Django's User model to store registration informat
 
 The User Profile contains delivery information for those who created an account and chose to store their delivery details for faster checkout.
 
+
 # Features
 
 ## Homepage
@@ -226,6 +221,7 @@ The User Profile contains delivery information for those who created an account 
 ## Delete Products
 <img src="media/delete.png" width="50%">
 
+
 # Technologies Used
 ## Languages Used
 
@@ -252,8 +248,11 @@ The User Profile contains delivery information for those who created an account 
 [Font Awesome](https://fontawesome.com/) - Used for all of the icons throughout the site.
 
 
+
 # Testing
+
 ## **Manual Testing by User Story**
+
 ### **Admin/Superuser**
 ### 1. As a Site Owner, I want to be able to add a product so that I can add more items to my store.
 - Products may be added using the Admin Panel or the project management page accessed by clicking on 'My Account.'
@@ -349,7 +348,6 @@ To confirm that all totals matched, the Order total was compared on the checkout
 ### 9. As a Customer, I want to be able to sort multiple categories and products so that I can find the best price of product.
 
 - Testing the sort functionality was done within the all products tab as it contained the majority of products. The sort options tested were:
-
     - Price (Low to High)
     - Price (High to Low) 
     - Rating (Low to High)
@@ -359,139 +357,94 @@ To confirm that all totals matched, the Order total was compared on the checkout
     - Category (A to Z)
     - Category (Z to A)
 
-
-
 ### 10. As a Customer, I want to be able to easily see what I’ve searched so that I can quickly see whether the product is available.
 - This was tested by:
-
     - Searching via the search box
-
 - The search quantity is displayed at the top left of the page, and the number displayed corresponds to the number of searches on each page.
 
-
-
 ### 11. As a Customer, I want to be able to easily register for an account so that I can have a personal account and view my profile and purchase history.
-- This was tested by registering a couple of user accounts and:
-
-- logging out and back in to ensure they worked
-- Confirming the account via email
-- Checking the Admin panel for confirmed email addresses
-- Attempting to create an account with an email address that already exists
-
+- This was tested by registering user accounts and:
+    - Logging out and back in to ensure they worked
+    - Confirming the account via email
+    - Checking the Admin panel for confirmed email addresses
+    - Attempting to create an account with an email address that already exists.
 - The above ensured the user accounts were generated. 
-
 - To test profile information I added an address and attempted to checkout an item. This ensured that the address saved in the profile was auto-filled on the checkout page. To test this further I made an order, ensuring the save details to profile checkbox is ticked and checked the address saved to the user's profile. 
-
 - To test the order history, I checked whether the orders placed to test the profile information had been saved to the profile, and the information contained in the order matched what was placed in the bag and checked out.
-
 - To test that accounts cannot be created with the same email address I attempted to create an account for an email that already exists. An error message occurred after I clicked submit, ensuring I was unable to create the duplicate account.
-
-
 
 ### 12. As a Customer, I want to be able to reset my password if I have forgotten it.
 - This was tested by clicking the 'Forgot Password' link at the bottom of the login page. The user then receives a link via email, therefore I tested this with an existing email to ensure the link was received.
-
 - The user is taken to a page where they reset the password by entering it twice. After the new password has been entered, the user is re-directed to a confirmation page with a bootstrap toast displaying a success message. If the passwords do not match then an error message notifies the user so they can try again.
-
 - Once reset, the user must then re-login with the new password, which was tested to confirm the password change and that the correct user is now logged in.
-
-
 
 ### 13. As a Customer, I want to be able to receive a registration confirmation email so that I can confirm registration.
 - This was confirmed by registering for an account. To complete registration, the user must receive an email with a link that validates their email address. A specifically created email address was used to test this. The email was received, and the account was confirmed using the link.
 
 
+
 # Validator Testing
 
-- The HTML templates were validated using [W3 Validator](https://validator.w3.org/nu/#textarea). No major errors were returned for the HTML segments.
-- The CSS style sheet was validated using [W3C Validator](https://jigsaw.w3.org/css-validator/#validate_by_input) and no errors were returned.
+- The HTML templates were validated using [W3 Validator](https://validator.w3.org/). No major errors were returned for the HTML segments.
+- The CSS style sheet was validated using [W3C Validator](https://jigsaw.w3.org/css-validator/) and no errors were returned.
 - The JavaScript files were run through [JSHint](https://jshint.com/) No errors were found.
 - The code was validated using [PEP8](http://pep8online.com/). No errors were returned.
+
 
 
 # Bugs Found 
 
 - While working on this project, I ran into the following issues:
+- On manage.py file I didn't write the correct code in the app, and this showed me it was an error like this: "No Module Named".
+- On the checkout page I didn't close one div and the checkout payment didn't work.
+- The policy generator for [AWS](https://aws.amazon.com/?nc2=h_lg) URL wasn't working and I needed to ask Tutor Assistance for assistance to help me fix the file. 
+- The Sport Shop page image wasn't loading on the deployed site. To fix this I changed the image source to the images [AWS](https://aws.amazon.com/?nc2=h_lg) URL to display the image.
 
-- On manage.py file didn't wrote correct the app, was show the error "no Module named".
 
-- On the checkout page didn't closed one div and the checkout payment didn't worked.
-
-- To generate the policy for [AWS](https://aws.amazon.com/?nc2=h_lg) URL wasn't working i need to asked the Tutor Assistance for sending me the PDF file to fix.
-
-- The Sport Shop page image wasn't Loading on the deployed site. To fix this I changed the image source to the images [AWS](https://aws.amazon.com/?nc2=h_lg) URL to display the image.
 
 
 # Deployment 
 
-This project was deployed using Heroku. Because Heroku was having a security issue at the time of deployment, this project was deployed using GitPod from the command line, as shown below. As a result, I was unable to enable automated Heroku deployments whenever a commit was published into the repository.
+This project was deployed using Heroku. Heroku was having a security issue at the time of deployment, this project was deployed using GitPod from the command line, as shown below. As a result, I was unable to enable automated Heroku deployments whenever a commit was published into the repository.
 
 See the following steps to deploy:
 
 1. Log into Heroku and Create a New App.
-
 2. Give the App a name, it must be unique, and select a region closest to you. 
-
 3. Click on 'Create App'. This will take you to a page where you can deploy your project. 
-
 4. Next, click on the 'Resources' tab and search for 'Heroku Postgres' in the Add-ons section to add the Heroku Postgres database to the project. 
-
-5. Click on the 'Settings' tab at the top of the page. The following steps must be completed before deployment.
-
+5. Click on the 'Settings' tab at the top of the page. The following steps must be completed before deployment
 6. Within the settings.py file you need to import os and import dj_database_url at the top. Then, in the command line install dj_database_url and psycopg2 so that we can use Postgres. Freeze these installs into the requirements.txt file.
-
 7. Scroll down to Config Vars (also known as Environment Variables) and click 'Reveal Config Vars'. Here the database URL is stored to run my app on Heroku. 
-
 8. Next I ran the migrations to set up my Postgres Database by running **Python 3 manage.py migrate** within the command line and then create a Superuser using **python3 manage.py create superuser**.
-
 9. Following setting up the database I generated a new Secret Key, to replace the insecure key that was in settings.py and added: **os.environ.get('SECRET_KEY')**. I then added the newly generated key to the Config Vars on Heroku. 
-
 10. We must then install Gunicorn, which will act as our webserver and freeze that into our requirements file.
-
 11. Next I created a Procfile to tell Heroku to create a web dyno that will run Gunicorn and serve our Django app.
-
 12. I then told Heroku temporarily disable collectstatic by using the Heroku config set, disable collectstatic = 1. I added this via Heroku's Config Vars but this can also be added via the command line. This was to prevent Heroku from attempting to deploy the static files, causing an error, until Amazon Web Services was set up. 
-
 13. Then add the hostname of our Heroku app to 'Allowed Hosts' in settings.py as well as localhost so that GitPod will still work too.
-
 14. I then committed and pushed these changes into my GitHub repository so that I could start my first deployment. Once complete, log into Heroku using the following command in the terminal, **heroku login -i**,  and enter your login details.
-
 15. Once logged in, add a remote to your local repository with the Heroku git:remote command and your Heroku app’s name: **heroku git:remote -a <app_name>**
-
 16. Finally, deploy using the following command: **git push heroku main**. Once deployed you can open the app from the command line to ensure it was successfully deployed.
-
 17. Once we can confirm the app deployed successfully, we need to set up Amazon Web Services as this will be where my media and static files are stored. To do this I first created an account with Amazon Web Services. Then, I searched for the service, S3, using the search bar at the top of the page. 
-
 18. Click into it and then click the orange 'Create a Bucket' button. I named this bucked to match my  Heroku app name to keep things simple. Then, I selected my region and changed the 'Object Ownership' setting to **ACLs enabled**. Then, I unchecked block all public access, acknowledged that the bucket will be public, and clicked on the 'Create Bucket' button.
-
 19. Next, on the properties tab, I scrolled to the bottom and turned on static website hosting.
 This gave me a new endpoint that I can use to access it from the internet. For the index and error document, I filled in some default values and then clicked Save.
-
 20. Next I'll go to the bucket policy tab a select, policy generator so we can create a security policy for this bucket. The policy type is going to be s3 bucket policy and then allow all principals by using a '*' and the action will be, get object. Next, I copied the ARN which stands for Amazon resource Name from the other tab and paste it into the ARN box at the bottom. I then clicked 'Add statement' and then 'Generate Policy'.
-
 21. I then copied this policy into the bucket policy editor. I then added '/*' at the end of the resource key to allow access to all resources in this bucket and then saved it.
-
 22. Finally, to complete configuration, I went to the 'access control list' tab and checked edit and enable List for Everyone (public access), and accepted the warning box.
-
 23. Next I created a group and a user to access the bucket by searching for the service IAM (Identify and Access Management). I clicked on 'User Groups' and then 'Create User Group' giving it the name. 
-
 24. I then created the Policy used to access our bucket by clicking 'Policies' and then 'Create Policy'. I clicked onto the JSON tab and then selected import managed policy to import one that AWS has pre-built for full access to s3.
-
 25. I searched for s3 and then import the s3 full access policy. I then got the bucket ARN from the bucket policy page in s3 and pasted that into the 'Resource' section on the JSON tab.
-
 26. Finally I created a user to put in the group by going to the User's page and clicking 'Add User'. I created a user name gave them Programmatic Access, and clicked 'Create User'. 
-
 27. I then downloaded the CSV file which contained this User's Access Key and Secret Access Key which I used to authenticate them from my Django app. It is important to download this file as you cannot be re-downloaded and contains the new user's credentials which I next add to the Config Vars on Heroku.
-
 28. Next, I connected Django to the new S3 bucket. To do this I installed two new packages:
 - boto3
 - django-storages 
-
 29. I installed pip3 freeze these to the requirements.txt file to ensure they're installed on the next Heroku Deploy and added **storages** to our installed apps in settings.py. 
-
 30. The next step is to tell Django that in production we want to use s3 to store our static files whenever someone runs collectstatic and that we want any uploaded product images to go there also. To do that I created a file called custom_storages.py.
-
 31. Finally, to complete the deployment of the AWS setup, I committed the changes and pushed them to GitHub.
+
+
 
 # Credit
 ## Content
@@ -507,5 +460,7 @@ This gave me a new endpoint that I can use to access it from the internet. For t
 
 - [Bootstrap](https://getbootstrap.com/docs/4.2/components/spinners/)
 
+
+
 # Acknowledgments
-Thank you to everyone who helped me build my own full-stack E-Commerce website by encouraging and supporting me. I would like to say thanks to Adegbenga Adeye, my mentor at Code Institute, for his advice, understanding, and total support.
+I would like to thank everyone who helped me build my own full-stack E-Commerce website by encouraging and supporting me. To tutor assistance I would also like to thank them as they encouraged me and supported me if I had an issues throughout the project. I would like to thank Adegbenga Adeye, my mentor at Code Institute, for his advice, understanding, and total support.
