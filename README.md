@@ -6,9 +6,8 @@ The live Sport Shop site can be viewed [here](https://sport-shop1.herokuapp.com/
 ### Aim 
 The Sport Shop is an ecommerce website allowing users to purchase sports clothing, shoes and accessories developed for my Project 5 as part of the Code Institute - Diploma in Software Development (Full stack) Diploma.
 
-## Table of Contents
-- [User Experience](#user-experience)
-
+## User Experience (UX)
+- [User Experience](#user-experience-ux)
     - [Strategy](#strategy)
 
     - [User Stories](#user-stories)
@@ -34,8 +33,6 @@ The Sport Shop is an ecommerce website allowing users to purchase sports clothin
 - [Credit](#credit)
 
 - [Acknowledgments](#Acknowledgments)
-
-# User Experience 
 
 # Strategy 
 
@@ -107,12 +104,27 @@ This project is structured with a homepage that greets the user with a clear nav
 
 Users have to create a profile for themselves which contains their delivery address and it contains their order history.
 
+## Wireframes
 The website is made of the following apps:
-1. Home
-2. Products
-3. Profile
-4. Bag
-5. Checkout
+- [Home Page](assets/readme-pdf/home-page.pdf)
+    - [All Products](assets/readme-pdf/all-products-list.pdf)
+    - [Mens](assets/readme-pdf/mens-list.pdf)
+    - [Womens](assets/readme-pdf/womens-list.pdf)
+    - [Special Offers](assets/readme-pdf/special-offers-list.pdf)
+- [Products](assets/readme-pdf/all-product-page.pdf)
+    - [Sort by](assets/readme-pdf/sort-by-function.pdf)
+- [Products Detail](assets/readme-pdf/product-page.pdf)
+- [My Account](assets/readme-pdf/my-account-list.pdf)
+    - Product Management
+        - [Add a Product](assets/readme-pdf/add-product-page.pdf)
+        - [Edit a Product](assets/readme-pdf/edit-page.pdf)
+    - [My Profile](assets/readme-pdf/my-profile-page.pdf)
+- [Bag](assets/readme-pdf/shopping-bag-page.pdf)
+    - [Bag Empty](assets/readme-pdf/shopping-bag-empty.pdf)
+- [Checkout](assets/readme-pdf/checkout-page.pdf)
+    - [Checkout Confirmation](assets/readme-pdf/checkout-order.pdf)
+- [Sign Up](assets/readme-pdf/sign-up-page.pdf)
+- [Sign In](assets/readme-pdf/sign-in-page.pdf)
 
 ## Databases
 ### Category
@@ -201,10 +213,13 @@ The User Profile contains delivery information for those who created an account 
 
 
 
-# Products Page & Product Rating
+# Products Page 
 
-<img src="media/productspage.png" width="75%">
+<img src="media/product-page.jpg" width="75%">
 
+## Product Detail
+
+<img src="media/product-detail.jpg" width="50%">
 
 # Order Confirmation Email
 
@@ -459,6 +474,8 @@ This gave me a new endpoint that I can use to access it from the internet. For t
 - [Logo Font - Google Fonts](https://fonts.google.com/specimen/Raleway?query=raleway)
 
 - [Bootstrap](https://getbootstrap.com/docs/4.2/components/spinners/)
+
+- [Balsamiq Cloud](https://balsamiq.cloud/)
 
 
 

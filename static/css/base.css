@@ -174,6 +174,46 @@ input[name='q']::placeholder {
     overflow-y: auto;
 }
 
+/* star rating */
+.star-container {
+    position: relative;
+    width: 400px;
+    padding: 10px 0px;
+    display: flex;
+}
+.star-container .post{
+    display: none;
+}
+.star-container .text{
+    font-size: 20px;
+    color: #666;
+    font-weight: 500;
+}
+
+.star-container .star-widget input{
+    display: none;
+}
+
+.star-widget label{
+    font-size: 20px;
+    padding: 10px;
+    float: right;
+    transition: all 0.2s ease;
+}
+
+input:not(:checked) ~ label:hover,
+input:not(:checked) ~ label:hover ~ label{
+  color: #fd4;
+}
+input:checked ~ label{
+  color: #fd4;
+}
+input#rate-5:checked ~ label{
+  color: #fe7;
+  text-shadow: 0 0 20px #952;
+}
+
+
 /* -------------------------------- Media Queries */
 
 /* Slightly larger container on xl screens */
@@ -265,6 +305,13 @@ input[name='q']::placeholder {
     border-radius: 0;
 }
 
+footer {
+    background-color: #000;
+    color: #fff;
+}
+#mc_embed_signup h2 {
+    font-weight: 100;
+}
 /* fixed top navbar only on medium and up */
 @media (min-width: 992px) {
     .fixed-top-desktop-only {

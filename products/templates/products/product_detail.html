@@ -39,11 +39,28 @@
                         </a>
                     </p>
                     {% endif %}
-                    {% if product.rating %}
-                        <small class="text-muted"><i class="fas fa-star mr-1"></i>{{ product.rating }} / 5</small>
-                    {% else %}
-                        <small class="text-muted">No Rating</small>
-                    {% endif %}
+                        <form class="form" action="" method="post">
+                            {% csrf_token %}
+                            <small class="text-muted">
+                                <div class="star-container">
+                                    <div class="post">
+                                        <div class="text">Thanks for rating us!</div>
+                                    </div>
+                                    <div class='star-widget'>
+                                        <input type="radio" name="rate" id="rate-5">
+                                        <label for="rate-5" class="fas fa-star"></label>
+                                        <input type="radio" name="rate" id="rate-4">
+                                        <label for="rate-4" class="fas fa-star"></label>
+                                        <input type="radio" name="rate" id="rate-3">
+                                        <label for="rate-3" class="fas fa-star"></label>
+                                        <input type="radio" name="rate" id="rate-2">
+                                        <label for="rate-2" class="fas fa-star"></label>
+                                        <input type="radio" name="rate" id="rate-1">
+                                        <label for="rate-1" class="fas fa-star"></label>
+                                    </div>
+                                </div>
+                            </small>
+                        </form>
                     {% if request.user.is_superuser %}
                         <small class="ml-3">
                             <a href="{% url 'edit_product' product.id %}">Edit</a> | 
@@ -130,6 +147,15 @@
 {% endblock %}
 
 {% block postloadjs %}
+<script>
+    const post = document.querySelector(".post");
+    const stars = document.querySelector(".star-widget");
+    stars.onclick = ()=>{
+      stars.style.display = "none";
+      post.style.display = "block";
+      return false;
+      }
+</script>
 {{ block.super }}
 {% include 'products/includes/quantity_input_script.html' %}
 {% endblock %}
