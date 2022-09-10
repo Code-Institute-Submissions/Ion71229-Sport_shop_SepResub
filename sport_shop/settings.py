@@ -49,9 +49,11 @@ INSTALLED_APPS = [
     'bag',
     'checkout',
     'profiles',
+    'review',
 
     #Other
     'crispy_forms',
+    'profanity',
     'storages',
 ]
 
@@ -174,6 +176,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+
+CSRF_TRUSTED_ORIGINS = ['https://8000-ion71229-sportshop-x1762hawxi0.ws-eu64.gitpod.io']
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

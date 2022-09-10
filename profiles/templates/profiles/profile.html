@@ -73,6 +73,32 @@
                 </div>
             </div>
         </div>
+
+<!-- Favourite Items -->
+<div class="row mx-4 mt-2">
+    <div class="col-12">
+        {% if not orders %}
+        <hr class="d-lg-none">
+        {% endif %}
+        <h4>Favourite Items:</h4>
+    </div>
+</div>
+
+{% if products %}
+<div class="row mx-4 mt-2 mb-4">
+    {% for product in products %}
+        <div class="col-lg-2 col-md-6 d-flex justify-content-center py-1 px-2">
+            <div class="card border-0 rounded" style="width: 100%;">
+                {% include 'products/includes/product-card.html' %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="col mb-5">
+    <p class="text-center">Looks like you don't have any favourite items yet!</p>
+</div>
+{% endif %}
 {% endblock %}
 
 {% block postloadjs %}

@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load profanity %}
 
 {% block page_header %}
 <div class="container header-container">
@@ -16,6 +17,9 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 col-md-6 col-lg-4 offset-lg-2">
+                {% if user.is_superuser and product.featured %}
+                <div class="ribbon ribbon-top-left"><span>Featured</span></div>
+                {% endif %}
                 <div class="image-container my-5">
                     {% if product.image %}
                         <a href="{{ product.image.url }}" target="_blank">
@@ -31,6 +35,55 @@
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="product-details-container mb-5 mt-md-5">
                     <p class="mb-0">{{ product.name }}</p>
+                    <!-- Heart button to add product to favourites -->
+                    <p class="d-inline">Add to Favourites: </p>
+                    {% if user.is_authenticated %}
+                    <form class="d-inline" action="{% url 'favourite_product' product.id %}" method="POST">
+                        {% csrf_token %}
+                        {% if liked %}
+                        <button type="submit" value="{{ product.id }}" class="btn-like">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                        {% else %}
+                        <button type="submit" value="{{ product.id }}" class="btn-like">
+                            <i class="far fa-heart"></i>
+                        </button>
+                        {% endif %}
+                    </form>
+                    {% else %}
+                    <!-- Button to trigger account required modal -->
+                    <button type="button" class="btn btn-like" data-toggle="modal" data-target="#account-required-modal">
+                        <i class="far fa-heart"></i>
+                    </button>
+
+                    <!-- Account required Modal -->
+                    <div class="modal fade" id="account-required-modal" tabindex="-1" role="dialog"
+                        aria-labelledby="account-required-modal-Label" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="account-required-modal-Label">Account Required</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Please create an account or sign in to use this feature.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline-dark rounded-pill" data-dismiss="modal">Close</button>
+                                    <a class="btn link-btn rounded-pill" href="{% url 'account_signup' %}">Register</a>
+                                    <a class="btn link-btn rounded-pill" href="{% url 'account_login' %}">Sign In</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="mb-3">
+                    <!-- Product Rating -->
+                    <div class="product-rating d-inline">{% include 'products/includes/product-rating.html' %}</div>
+                    <p class="ml-3 small d-inline">({{ review_count }})</p>
+                    </div>
                     <p class="lead mb-0 text-left font-weight-bold">€{{ product.price }}</p>
                     {% if product.category %}
                     <p class="small mt-1 mb-0">
@@ -39,30 +92,13 @@
                         </a>
                     </p>
                     {% endif %}
-                        <form class="form" action="" method="post">
-                            {% csrf_token %}
-                            <small class="text-muted">
-                                <div class="star-container">
-                                    <div class="post">
-                                        <div class="text">Thanks for rating us!</div>
-                                    </div>
-                                    <div class='star-widget'>
-                                        <input type="radio" name="rate" id="rate-5">
-                                        <label for="rate-5" class="fas fa-star"></label>
-                                        <input type="radio" name="rate" id="rate-4">
-                                        <label for="rate-4" class="fas fa-star"></label>
-                                        <input type="radio" name="rate" id="rate-3">
-                                        <label for="rate-3" class="fas fa-star"></label>
-                                        <input type="radio" name="rate" id="rate-2">
-                                        <label for="rate-2" class="fas fa-star"></label>
-                                        <input type="radio" name="rate" id="rate-1">
-                                        <label for="rate-1" class="fas fa-star"></label>
-                                    </div>
-                                </div>
-                            </small>
-                        </form>
                     {% if request.user.is_superuser %}
                         <small class="ml-3">
+                            <form class="d-inline" action="{% url 'feature_product' product.id %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                                <button type="submit" class="text-white bg-info btn-sm small border rounded-pill">{% if product.featured %}Unfeature{% else %}Feature{% endif %}</button>
+                            </form>
                             <a href="{% url 'edit_product' product.id %}">Edit</a> | 
                             <a class="text-danger" href="{% url 'delete_product' product.id %}">Delete</a>
                         </small>  
@@ -144,6 +180,116 @@
             </div>
         </div>
     </div>
+
+<!-- Reviews -->
+<div class="row mt-5 mb-2 mb-lg-3 px-4">
+    <!-- Customer Reviews -->
+    <section class="col-lg-6 ">
+        {% if reviews %}
+        <h4>{{ review_count }} Reviews for {{ product.name }}</h4>
+        <hr>
+        <div class="container">
+            {% for review in reviews %}
+                <div class="row">
+                    <div class="col review-stars">
+                        {% if review.rating == 5 %}
+                            <i class="fa fa-solid fa-star"></i><i class="fa fa-solid fa-star"></i><i class="fa fa-solid fa-star"></i><i
+                                class="fa fa-solid fa-star"></i><i class="fa fa-solid fa-star"></i>
+                            {% elif review.rating == 4 %}
+                            <i class="fa fa-solid fa-star"></i><i class="fa fa-solid fa-star"></i><i class="fa fa-solid fa-star"></i><i
+                                class="fa fa-solid fa-star"></i>
+                            {% elif review.rating == 3 %}
+                            <i class="fa fa-solid fa-star"></i><i class="fa fa-solid fa-star"></i><i class="fa fa-solid fa-star"></i>
+                            {% elif review.rating == 2 %}
+                            <i class="fa fa-solid fa-star"></i><i class="fa fa-solid fa-star"></i>
+                            {% elif review.rating == 1 %}
+                            <i class="fa fa-solid fa-star"></i>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col">
+                        {{ review.body }}
+                    </div>
+                </div>
+                <div class="row mt-1">
+                    <div class="col">
+                       <p class="d-inline font-italic small text-muted">by {{ review.user }} &#8226; {{review.created_on}}</p>
+                       <p class="d-inline small text-muted float-right">
+                           {% if user.is_authenticated and user.id == review.user.user.id %}
+                           <a href="{% url 'edit_review' review.id %}">edit</a> | 
+                            <!-- Button triggering deletion warning modal -->
+                            <button class="btn btn-sm p-0 review-delete-btn" data-toggle="modal" data-target="#review-modal-{{ review.id }}">delete</button>
+                            <!-- Deletion warning Modal -->
+                            <div class="modal fade" id="review-modal-{{ review.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title text-white" id="exampleModalLabel">Warning!</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Are you sure you want to delete your review? This act is irreversible.
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-outline-dark rounded-pill" data-dismiss="modal">Cancel</button>
+                                            <a href="{% url 'delete_review' review.id %}" class="btn text-white bg-danger rounded-pill">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                           {% endif %}
+                    </div>
+                </div>
+                <hr>
+            {% endfor %}
+        </div>
+        {% else %}
+        <h4>This Product has no reviews</h4>
+        <hr>
+        {% endif %}
+    </section>
+
+    <!-- Add a review  -->
+    <section class="col-lg-6 my-4 my-lg-0">
+        <h4>Add Review</h4>
+        <hr>
+        {% if user.is_authenticated %}
+            {% if reviewed %}
+             <p>You have already reviewed this product.</p>
+            {% else %}
+                <form action="{% url 'product_detail' product.id %}" method="POST">
+                    {% csrf_token %}
+                    {% for field in form  %}
+                        {% if field.name == "rating" %}
+                            <p class="mb-0">{{ field.label }} *</p>
+                            <br>
+                            {% for radio in field %}
+                                <label for="{{ radio.id_for_label }}">
+                                    <i class="far fa-star star"></i>
+                                </label>
+                                <div class="radio-tag d-inline">{{ radio.tag }}</div>
+                            {% endfor %}
+                            <br>
+                        {% else %}
+                            {{ field.errors }}
+                            <br>
+                            {{ field | as_crispy_field }}
+                        {% endif %}
+                    {% endfor %}
+                    <p class="small text-muted font-italic">* Required</p>
+                    <button type="submit" class="btn link-btn rounded-pill d-block mt-2">Add Review</button>
+                </form>
+            {% endif %}
+        {% else %}
+        <p>Please <a href="{% url 'account_login' %}">login</a> to leave a review.</p>
+        {% endif %}
+    </section>
+</div>
+
 {% endblock %}
 
 {% block postloadjs %}
@@ -158,4 +304,5 @@
 </script>
 {{ block.super }}
 {% include 'products/includes/quantity_input_script.html' %}
+{% include 'review/includes/fill-stars-script.html' %}
 {% endblock %}

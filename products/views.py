@@ -1,11 +1,18 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.db.models.functions import Lower
+from django.db.models import Avg
+from django.conf import settings
 
 from .models import Product, Category
+from review.models import Review
 from .forms import ProductForm
+from review.forms import ReviewForm
+from profiles.models import UserProfile
+
 
 # Create your views here.
 def all_products(request):
@@ -38,7 +45,6 @@ def all_products(request):
                 categories = Category.objects.filter(name__in=categories)
 
 
-
         if 'q' in request.GET:
                 query = request.GET['q']
                 if not query:
@@ -65,12 +71,79 @@ def product_detail(request, product_id):
     """ A view to show individual product details """
 
     product = get_object_or_404(Product, pk=product_id)
+    reviews = Review.objects.all().filter(
+        product=product).order_by('-created_on')
+    review_count = len(reviews)
 
-    context = {
-        'product': product,
-    }
+    if request.user.is_authenticated:
+        user_profile = get_object_or_404(UserProfile, user=request.user)
 
-    return render(request, 'products/product_detail.html', context)
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            reviews.create(
+                user=user_profile,
+                product=product,
+                rating=request.POST.get('rating'),
+                body=request.POST.get('body')
+            )
+            reviews = Review.objects.all().filter(product=product)
+            rating = reviews.aggregate(Avg('rating'))['rating__avg']
+            product.rating = rating
+            product.review_count = review_count + 1
+            product.save()
+            messages.success(request, 'Review sucessfully added')
+            return redirect(reverse('product_detail', args=[product_id]))
+        else:
+            print(form.errors.as_data())
+            messages.error(
+                request,
+                'Review Failed. Please check for errors or profanity and try again.'
+                )
+            return redirect(reverse('product_detail', args=[product_id]))
+    else:
+        form = ReviewForm()
+        if request.user.is_authenticated:
+            reviewed = Review.objects.all().filter(
+                product=product).filter(user=user_profile.id)
+        else:
+            reviewed = False
+
+        liked = False
+        if product.likes.filter(id=request.user.id).exists():
+            liked = True
+
+        delivery = settings.STANDARD_DELIVERY_PERCENTAGE
+
+        context = {
+            'product': product,
+            'liked': liked,
+            'form': form,
+            'reviews': reviews,
+            'review_count': review_count,
+            'reviewed': reviewed,
+            'delivery': delivery,
+        }
+
+        return render(request, 'products/product_detail.html', context)
+
+
+def favourite_product(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    if request.POST:
+        if product.likes.filter(id=request.user.id).exists():
+            product.likes.remove(request.user)
+            messages.success(
+                request, f'Removed {product.name} from your favourites'
+                )
+        else:
+            product.likes.add(request.user)
+            messages.success(
+                request, f'Added {product.name} to your favourites'
+                )
+        return HttpResponseRedirect(
+            reverse('product_detail', args=[product.id]))
+
 
 @login_required
 def add_product(request):
@@ -134,9 +207,28 @@ def delete_product(request, product_id):
     if not request.user.is_superuser:
         messages.error(request, 'Sorry, only store owners can do that.')
         return redirect(reverse('home'))
-
-        
+    
     product = get_object_or_404(Product, pk=product_id)
     product.delete()
     messages.success(request, 'Product deleted!')
     return redirect(reverse('products'))
+
+@login_required
+def feature_product(request, product_id):
+    """ Toggles products feature status """
+    if not request.user.is_superuser:
+        messages.error(request, 'Sorry, only store owners can do that.')
+        return redirect(reverse('home'))
+
+    redirect_url = request.POST.get('redirect_url')
+    if request.POST:
+        product = get_object_or_404(Product, pk=product_id)
+        if product.featured:
+            product.featured = False
+            product.save()
+            messages.success(request, 'Product unfeatured!')
+        else:
+            product.featured = True
+            product.save()
+            messages.success(request, 'Product Featured!')
+        return redirect(redirect_url)
