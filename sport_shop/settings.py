@@ -28,8 +28,7 @@ DEBUG = 'DEVELOPMENT' in os.environ
 
 ALLOWED_HOSTS = ['sport-shop1.herokuapp.com', 'localhost']
 
-CSRF_TRUSTED_ORIGINS = ['https://8000-ion71229-sportshop-avbvws8czhj.ws-eu54.gitpod.io']
-
+CSRF_TRUSTED_ORIGINS = ['https://8000-ion71229-sportshop-5vrkdc681t7.ws-eu64.gitpod.io']
 
 # Application definition
 
@@ -177,7 +176,7 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
-CSRF_TRUSTED_ORIGINS = ['https://8000-ion71229-sportshop-x1762hawxi0.ws-eu64.gitpod.io']
+CSRF_TRUSTED_ORIGINS = ['https://8000-ion71229-sportshop-5vrkdc681t7.ws-eu64.gitpod.io']
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

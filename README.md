@@ -221,6 +221,10 @@ The User Profile contains delivery information for those who created an account 
 
 <img src="media/product-detail.jpg" width="50%">
 
+## Favourite Items
+
+<img src="media/favorite-items.jpg" width="50%">
+
 # Order Confirmation Email
 
 <img src="media/orderconfirmation.png" width="70%">
