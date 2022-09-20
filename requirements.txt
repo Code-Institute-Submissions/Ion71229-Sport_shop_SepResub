@@ -15,7 +15,7 @@ django-profanity-filter==0.2.1
 django-storages==1.13.1
 heroku==0.1.4
 inflection==0.5.1
-jmespath==1.0.1
+jmespath==0.9.5
 murmurhash==1.0.8
 numpy==1.23.3
 oauthlib==3.2.1
