@@ -28,6 +28,7 @@ DEBUG = 'DEVELOPMENT' in os.environ
 
 
 
+
 ALLOWED_HOSTS = ['sport-shop1.herokuapp.com', 'localhost']
 
 CSRF_TRUSTED_ORIGINS = ['https://8000-ion71229-sportshop-5vrkdc681t7.ws-eu64.gitpod.io']
